@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lend</title>
+    <link rel="stylesheet" href="static/lend.css">
+</head>
+<body>
+    <nav>
+        <form action="/main" method="get">
+            <input class="navbar" type="submit" name = "main" value="View Communal Inventory" />
+        </form>
+    </nav>
+    <section>
+        <header id="buttons">
+            <button id="pen_req_btn" class="requests" onclick="toggleView()"><p id="change_text"></p></button>
+            <button id = "add_btn"> <p>Add Items</p></button>
+            <!--<input type = "button" id = "add_btn"  name = "new_item"  value="Add New Item"/>-->
+        </header>
+    
+        <form id="add_frm" hidden class="added">
+            <div id="form_container">
+                <input type = "text" id="item_name" name="add_" placeholder="ITEM NAME" required/>
+                <input type = "text" id="item_qty" name="add_" placeholder="ITEM QTY" required/>
+            </div>
+            <button id = "sbmt" type="submit"> ENTER</button> 
+        </form>   
+
+        <div id="pending_requests" hidden>
+            <table>
+                <thead>
+                    <th>QTY</th>
+                    <th>REASON</th>
+                    <th>ITEM</th>
+                    <th>DURATION</th>
+                    <th>MESSAGE</th>
+                    <th>APPROVE.</th>
+                </thead>
+                <tbody id = "req_list">
+                    {% for request in requests %}
+                    <tr>
+                        <td>{{request[1]}}</td>
+                        <td>{{request[2]}}</td>
+                        <td>{{request[3]}}</td>
+                        <td>{{request[4]}}</td>
+                        <td>{{request[5]}}</td>
+                        <td><button class = "approve_btn" data-item-id="{{request[1]}}" data-qty-id="{{request[2]}}"  data-reason-id="{{request[3]}}" data-duration-id="{{request[4]}}" data-message-id="{{request[5]}}" data-request-id="{{request[0]}}">Approve</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table> 
+            
+        </div>
+        
+        <div id="add-container">
+            <h3 id="tbl_heading"> Your Current Additions </h3>
+            <div id="additionTable_container">
+                <div id="headContainer">
+                    <div id="item_head" class="item">Item</div>
+                    <div id="qty_head" class="qty">Qty</div>
+                </div>
+                <div id="additions">
+                    {% for item in items %}
+                        <div class="curr_add">
+                            <div class="item">{{ item[0] }}</div>
+                            <div class="qty">{{ item[1] }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <script>
+        const alterText = document.querySelector('#change_text');
+        const list = document.querySelector("#pending_requests");
+        const tbh = document.querySelector("#tbl_heading");
+        const addTable = document.querySelector("#add-container");
+        const addForm = document.querySelector("#add_frm");
+    
+        // Set initial states
+        alterText.innerHTML = "Show Pending Requests!";
+        list.hidden = false; // Assuming you want to show pending requests initially
+        tbh.hidden = true;
+        addTable.hidden = true;
+        addForm.hidden = true;
+    
+        // Function to toggle between views
+        function toggleView() {
+            if (list.hidden) {
+                // Show pending requests and hide others
+                list.hidden = false;
+                tbh.hidden = true;
+                addTable.hidden = true;
+                addForm.hidden = true;
+                alterText.innerHTML = "Show my Added table!";
+            } else {
+                // Show the added table and hide others
+                list.hidden = true;
+                addTable.hidden = false;
+                tbh.hidden = false; 
+                addForm.hidden = true;
+                alterText.innerHTML = "Show Pending Requests!";
+            }
+        }
+    
+        document.addEventListener('click', async function (event) {
+            if (event.target.id === 'toggle_btn') { // Assuming you have a button with id 'toggle_btn'
+                toggleView();
+            }
+    
+            if (event.target.id === 'add_btn') {
+                // Toggle form visibility
+                addForm.hidden = !addForm.hidden;
+    
+                // Ensure the other sections are hidden when form is shown
+                if (!addForm.hidden) {
+                    addTable.hidden = true;
+                    tbh.hidden = true;
+                    list.hidden = true;
+                }
+    
+                // Keep "Pending Requests" button text correct
+                alterText.innerHTML = addForm.hidden ? "Show Pending Requests!" : "Show my Added table!";
+            }
+    
+            else if (event.target.id === 'sbmt') {
+                event.preventDefault();
+                addForm.hidden = true;
+                addTable.hidden = false;
+                tbh.hidden = false;
+    
+                const add_list = document.querySelector("#additions");
+                const name = document.querySelector("#item_name").value;
+                const qty = document.querySelector("#item_qty").value;
+    
+                try {
+                    let response = await fetch('/lend', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ item: name, qty: qty })
+                    });
+    
+                    let data = await response.json();
+                    if (response.ok) {
+                        alert(data.qty + " " + data.name + " added successfully");
+    
+                        // Create a new row for containing the item entries
+                        let new_row = document.createElement('div');
+                        new_row.classList.add('curr_add');
+    
+                        let new_item = document.createElement('div');
+                        new_item.textContent = data.name;
+                        new_item.classList.add('item');
+    
+                        let new_qty = document.createElement('div');
+                        new_qty.textContent = data.qty;
+                        new_qty.classList.add('qty');
+    
+                        new_row.appendChild(new_item);
+                        new_row.appendChild(new_qty);
+                        add_list.appendChild(new_row);
+                    } else {
+                        console.error("ERROR", data.error);
+                    }
+                } catch (error) {
+                    console.error("Fetch Error:", error);
+                }
+            }   
+    
+            else if (event.target.classList.contains('approve_btn')) {
+                const requestId = event.target.dataset.requestId;
+                event.target.disabled = true;
+    
+                try {
+                    const response = await fetch(`/approve-request`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ id: requestId }),
+                    });
+    
+                    if (response.ok) {
+                        const data = await response.json(); // Fixed this line
+                        const requestItem = event.target.closest('.request_item');
+                        if (requestItem) {
+                            console.log("Removing:", requestItem);
+                            requestItem.remove();
+                        } else {
+                            console.warn("Parent with class 'request_item' not found!");
+                        }
+    
+                        alert(`Request Approved: ${data.message}`);
+                        location.reload();
+                    } else {
+                        throw new Error(await response.text());
+                    }
+                } catch (error) {
+                    console.error("Error approving request:", error);
+                    alert("Failed to approve request. Please try again");
+                } finally {
+                    event.target.disabled = false;
+                }
+            }
+        }); 
+    </script>
+
+</body>
+
+</html>

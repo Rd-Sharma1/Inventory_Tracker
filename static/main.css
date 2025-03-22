@@ -1,0 +1,85 @@
+h2{
+  font-size: 36px;
+  text-decoration: underline;
+  text-shadow: tan;
+}
+table th,
+table td{
+    height: 8vh;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+    background-color: burlywood;
+    padding: 1%;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.5rem;
+}
+table th {
+  border-radius: 4px;
+  margin-bottom: 40px;
+}
+table{
+  letter-spacing: 2px;
+  border-collapse: collapse;
+  width: 80%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  margin-left: 10%;
+  margin-bottom: 1rem;
+}
+tbody tr:nth-of-type(odd) td {
+  background-color: rgba(255, 237, 177, 0.849) !important;
+}
+
+#lend_btn, #borrow_btn{
+  font-size: 41px;
+  width: 25vw;
+  background-color: bisque;
+  border-radius:  4px;
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+#lend_btn:hover, #borrow_btn:hover {
+  cursor: pointer;
+  background-color: #fff1e1;
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  transform: scale(1.1);
+  transition: ease-in;
+  transition-duration: 0.7s;
+  transition-delay: 200ms;
+}
+#buttons{
+  display: flex;
+  justify-content: center;
+}
+body{
+  background-color: blanchedalmond;
+  text-align: center;
+}
+
+@media screen and (max-width: 780px) {
+  #buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  #lend_btn, #borrow_btn {
+    font-size: 1.2rem;
+    height: auto;
+    width: 60vw;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+  table td {
+    font-size: 0.95rem;
+    border: none;
+  }
+  table th {
+    font-size: 1.05rem;
+    border: none;
+  }
+}

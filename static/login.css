@@ -1,0 +1,109 @@
+
+body{
+    background-color: #1E1E1E;
+    font-family: "Alumni Sans Pinstripe", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#card {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(#2A2B38, #2f303fdd);
+    border-radius: 2px;
+    width: 30vw;
+    height: 60vh;
+    padding: 4%; 
+    margin: 10% auto;
+    overflow: hidden;
+}
+#login_txt {
+    text-align: center;
+    color: whitesmoke;
+    font-family: "Dhurjati", serif;
+    font-weight: 800;
+    font-size: 3rem;
+}
+#name, #pass {
+    display: flex;
+    padding: 5%;
+    margin: 4px auto;
+    height: 24px;
+    margin: 4px auto;
+    border-radius: 8px;
+    background-color: #1F2029;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+#icon_usr, #icon_pass {
+    color:  #FFEBA7;
+    font-size: 1.15rem;
+    margin-right: 4px;
+    margin-top: 2px;
+}
+#name_btn, #pass_btn {
+    height: 100%;
+    width: 100%;
+    background-color: #1F2029;
+    color: whitesmoke;
+    padding: 0px;
+    border: 0px;
+    font-size: 1.28rem;
+    font-style: italic;
+}
+.entries {
+    width: 100%;
+    padding-bottom: 4%;
+    margin-bottom: 4px;
+    /*border: 2px solid black;*/
+} 
+#login_block, #signin_block {
+    /*border: 2px solid red;*/
+    margin: auto;
+    padding: 4px;
+    width: 50%;
+    border-radius: 4px;
+}
+#login_block {
+    margin-bottom: 8px;
+}
+#signin_block {
+    margin-bottom: 24px;
+}
+#login_btn {
+    height: 36px;
+    width: 100%;
+    background-color: #FFEBA7;
+    border-radius: 24px;
+    color: #5E6681;
+    font-family: "Dhurjati", serif;
+    font-style: normal;
+}
+#signup_btn {
+    width: 100%;
+    background-color: #2A2B38;
+    border-radius: 24px;
+    color: white;
+    border: 0px;
+    font-style: normal;
+}
+#login_btn:hover, #signup_btn:hover {
+    cursor: pointer;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    transform: scale(1.1);
+    font-size: 1.05rem;
+    opacity: 0.85;
+    transition: all 0.5s;
+}
+.button {
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+@media screen and (max-width: 780px) {
+    #card {
+        width: 70vw;;
+        height: auto;
+    }
+    #name_btn,
+    #pass_btn {
+        font-size: 0.99rem;
+    }
+}

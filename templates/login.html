@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Dhurjati&display=swap" rel="stylesheet">    <link rel="stylesheet" href="static\login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>LOGIN</title>
+</head>
+<body>
+    <div id = "card" class="card">
+        <div>
+            <h1 id = "login_txt">Log In</h1>
+        </div>
+        <form id="user" action="/main" method="post">
+            <section class="entries">
+                <div id = "name"><div id="icon_usr"><i class="fa-regular fa-user"></i></div><div><input id="name_btn" type="text" autofocus autocomplete="off" name="username" placeholder="Enter Username" required></span></div></div>
+                <div id = "pass"><div id="icon_pass"><i class="fa-solid fa-lock"></i></div> <input id="pass_btn" type="password" name="password" placeholder="Enter Password" required></div>
+            </section>
+            <div id="login_block"><input type="submit" value="LOGIN" id ="login_btn" class="button"></div>
+        </form>
+        <div id="signin_block">
+            <form action="/signin" method="get">
+                <input type="submit" value= "signup" id="signup_btn" class="button"/>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

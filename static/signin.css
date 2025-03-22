@@ -1,0 +1,101 @@
+html {
+    all: unset;
+    font-family: "Alumni Sans Pinstripe", serif;
+    background-color: black;
+}
+
+.background {
+    height: 200px;
+    width: 100vw;
+    color: white;
+    text-align: center;
+    font-size: 3.2rem;    
+}
+.content {
+    display: flex;
+    width: 80%;
+    height: 50%;
+    padding: 2px;
+    margin: auto;
+   
+}
+.sigin_frm, .use {
+    width: 49%;
+    height: 200px;
+    padding: 12px;
+    overflow: hidden;
+}
+.sigin_frm{
+    background-color: #2A2B38;
+}
+.use {
+    background-color: #1F2029;
+    color: #FFEEE2;
+}
+#signin_btn{
+    width: 25%;
+    height: 32px;
+    margin-top: 8px;
+    margin-inline-start: 6px;
+    background-color: #FFEBA7;
+    border-radius: 8px;
+}
+
+#name, #pass {
+    display: flex;
+    padding: 20px;
+    margin: 5px;
+    height: 24px;
+    width: 75%;
+    border-radius: 8px;
+    background-color: #1F2029;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+#icon_usr, #icon_pass {
+    color:  #FFEBA7;
+    font-size: 1.15rem;
+    margin-right: 4px;
+    margin-top: 2px;
+}
+#name_btn, #pass_btn {
+    height: 100%;
+    width: 100%;
+    background-color: #1F2029;
+    color: whitesmoke;
+    padding: 0px;
+    border: 0px;
+    font-size: 1.28rem;
+    font-style: italic;
+}
+.entries {
+    width: 100%;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    margin-bottom: 4px;
+} 
+@media screen and (max-width: 780px){
+    .background h1{
+        font-size: 2.2rem;
+        margin-top: 100px;
+    }
+    .background{
+        height: auto;
+    }
+    .content {
+        flex-direction: column-reverse;
+        gap: 20px;
+        align-items: center;
+        
+    }
+    .content div{
+        width: 100%;
+        border-radius: 8px;
+    }
+    #icon_pass, #icon_usr {
+        margin-right: 0px;
+    }
+    #name_btn, #pass_btn{
+        font-size: 0.9rem;
+    }
+   
+}

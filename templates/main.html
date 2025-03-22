@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CommunalInventory</title>
+    <link rel="stylesheet" href="static\main.css">
+</head>
+<body>
+  <div id="buttons">
+    <form action="/lend" method="get">
+      <input type="submit" value="Lend" id="lend_btn"></a>
+    </form>
+    <form action="/borrow" method="get">
+      <input type="submit" value="Borrow" id="borrow_btn"></a>
+    </form>
+  </div>
+    <div><h2>Communal Inventory</h2></div>
+     <!-- the following line of code was implemented with guidance from ChatGPT -->
+    <div><table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+              {% for item in inventory %}
+                 <tr>
+                     <td>{{ item[0] }}</td>
+                     <td>{{ item[1] }}</td>
+                     <td>{{ item[2] }}</td>
+                     <td>{{ item[3] }}</td>
+                 </tr>
+              {% endfor %}
+        </tbody>
+      </table></div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrow</title>
+    <link rel="stylesheet" href="static/borrow.css">
+</head>
+<body>
+    <nav>
+        <form action="/main" method="get">
+            <input class="navbar" type="submit" name = "main" value="View Communal Inventory" />
+        </form>
+    </nav>
+     <section id="main">
+        <div class="table_container">
+            <table id="avlb_items" class="list">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Owner</th>
+                        <th>Borrow</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for b_item in b_items %}
+                    <tr>
+                        <td>{{ b_item[0] }}</td>
+                        <td>{{ b_item[1] }}</td>
+                        <td>{{ b_item[2] }}</td>
+                        <td><button data-item-id="{{b_item[0]}}" data-qty-id="{{ b_item[1]}}" data-owner-id="{{ b_item[2]}}" class="borrow_btn">borrow</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <form hidden="true" id="approval" action="/borrow" method="post">
+                <div id="input_fields">
+                    <input type="text" id="brw_durn" class="inp" placeholder="ADD BORROW DURATION">
+                    <input type="text" id="brw_rsn" class="inp" placeholder="ADD REASON">
+                    <input type="text" id="brw_msg" class="inp" placeholder="MESSAGE..">
+                </div>
+                <button type="submit" id="brw_sbmt">Confirm</button>
+            </form>
+        </div>
+            
+     </section>
+
+     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('click', (event) => {
+                if (event.target.classList.contains('borrow_btn')) {
+                    const form = document.querySelector("#approval");
+                    const p_id = document.getElementById("p_id");
+                    
+                    if (!form.hidden) {
+                        form.hidden = true;
+                        return;
+                    }
+                    if (p_id) {
+                        p_id.remove();
+                    }
+
+                    const itemId = event.target.dataset.itemId;
+                    const qtyId = event.target.dataset.qtyId;
+                    const ownerId = event.target.dataset.ownerId;
+                   
+                    let confirmation = document.createElement("p");//current idea before sleeping: should just use input tags to submit this via form //better is to listen for Confirm button and use AJAX fetch for it so it would be easy to route handle it
+                    confirmation.setAttribute("id","p_id");
+                    confirmation.textContent = `Request Approval for ${qtyId}${itemId} to ${ownerId}?`
+                    form.appendChild(confirmation);
+
+                    form.hidden = false;
+                    document.querySelector("#brw_sbmt").onclick = async function (e) {
+
+                        const message = document.querySelector('#brw_msg').value;
+                        const duration = document.querySelector('#brw_durn').value;
+                        const reason = document.querySelector('#brw_rsn').value;
+                        e.preventDefault();
+                        form.hidden = true;
+
+                        try{
+                            let response = await fetch('/borrow',{
+                                method: "POST",
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ item: itemId,
+                                    qty: qtyId,
+                                    owner: ownerId,
+                                    message: message,
+                                    duration: duration,
+                                    reason: reason
+                                    })
+                                });
+                                let data = await response.json()
+                                if (response.ok)
+                                {
+                                    alert("Request for "+ data.qty + data.item +" by " + data.owner +" sent successflly..")
+                                    location.reload();
+                                }
+                                else {
+                                    console.error("Error", data.error)
+                                }
+
+                        } catch(error) {
+                            console.error("Fetch Error:", error)
+                        }
+                        
+                    };
+
+                }
+            });
+        });//used gpt to know this syntax
+
+     </script>
+</body>
