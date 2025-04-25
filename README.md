@@ -1,7 +1,7 @@
-# **Hostel Inventory Tracker: A Communal Inventory System**
+# **LEND & BORROW - A Hostel Inventory Tracker**
 
 ## **Overview**
-Hostel Inventory Tracker is a web-based inventory system designed to facilitate lending and borrowing among users. The application allows users to list items they are willing to lend, borrow available items, and request to borrow them. The goal is to promote resource sharing within a community while maintaining a simple and intuitive interface.
+Lend & Borrow- Hostel Inventory Tracker is a web-based inventory system designed to facilitate lending and borrowing among users. The application allows users to list items they are willing to lend, borrow available items, and request to borrow them. The goal is to promote resource sharing within a community while maintaining a simple and intuitive interface.
 
 ## **Features**
 ### **Core Functionality**
@@ -49,8 +49,8 @@ Hostel Inventory Tracker is a web-based inventory system designed to facilitate 
 ## **How to Run the Project**
 1. **Clone the Repository**:
    ```bash
-   git clone <repository_url>
-   cd lend-borrow
+   git clone <https://github.com/Rd-Sharma1/Inventory_Tracker>
+   cd CS50_FP
    ```
 2. **Set Up Virtual Environment**:
    ```bash
@@ -70,7 +70,8 @@ Hostel Inventory Tracker is a web-based inventory system designed to facilitate 
 
 ## **Credits**
 - AI Assistance: ChatGPT
-- Additional Contributions: 
+- Additional Contributions: Piyush Varshney, Prajjwal Arya
+
 
 ## **Future Improvements**
 - **Notifications for Lend Requests**
